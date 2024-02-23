@@ -9,6 +9,9 @@ const Navbar = () => {
             <LogoContainer>
                 <Logo src={logo} alt="HitBattle logo" onClick={() => navigate('/')} />
             </LogoContainer>
+            <LoginReg>
+                Login/Register
+            </LoginReg>
         </NavbarContainer>
     );
 };
@@ -17,8 +20,9 @@ export default Navbar;
 
 const NavbarContainer = styled.div`
     display: flex;
+    justify-content: space-between;
     border: 1px solid #000;
-    padding: 10px;
+    padding: 10px 20px;
     ` 
 
 const LogoContainer = styled.div`
@@ -30,4 +34,16 @@ const LogoContainer = styled.div`
 const Logo = styled.img`
     height: 20px;
     cursor: pointer;
+    `
+
+const LoginReg = styled.h3`
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.5;
+
+    &:hover {
+        opacity: 1;
+        text-decoration: underline;
+    }
     `
