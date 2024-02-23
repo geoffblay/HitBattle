@@ -18,6 +18,7 @@ export default Navbar;
 const NavbarContainer = styled.div`
     display: flex;
     border: 1px solid #000;
+    padding: 10px;
     ` 
 
 const LogoContainer = styled.div`
