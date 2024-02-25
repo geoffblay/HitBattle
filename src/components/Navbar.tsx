@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
-const Navbar = () => {
+const NavBar = () => {
     const navigate = useNavigate();
     return (
         <NavbarContainer>
@@ -16,7 +16,7 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default NavBar;
 
 const NavbarContainer = styled.div`
     display: flex;
