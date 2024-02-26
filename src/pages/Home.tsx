@@ -18,6 +18,15 @@ const Home = () => {
                 <h1>Choose an artist...</h1>
                 <SearchBar />
             </SearchBarContainer>
+            <CurrentArtistContainer>
+                {selectedArtist && (
+                    <CurrentArtist>
+                        <h2>Current Artist</h2>
+                        <img src={selectedArtist.picture_medium} width='100' height='100' />
+                        <h3>{selectedArtist.name}</h3>
+                    </CurrentArtist>
+                )}
+            </CurrentArtistContainer>
             <ArtistList playlistID='1313621735' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
             <ArtistList playlistID='3155776842' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
             <ArtistList playlistID='6614423884' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
@@ -41,4 +50,19 @@ const HomeContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    `
+
+const CurrentArtistContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+    `
+
+const CurrentArtist = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     `

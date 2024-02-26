@@ -17,9 +17,9 @@
 //                 <h1>...Now choose another.</h1>
 //                 <SearchBar />
 //             </SearchBarContainer>
-//             <ArtistList playlistID='1313621735' limit={5} onArtistSelect={handleArtistSelect}/>
-//             <ArtistList playlistID='3155776842' limit={5} onArtistSelect={handleArtistSelect}/>
-//             <ArtistList playlistID='6614423884' limit={5} onArtistSelect={handleArtistSelect}/>
+//             <ArtistList playlistID='1313621735' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
+//             <ArtistList playlistID='3155776842' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
+//             <ArtistList playlistID='6614423884' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
 //         </HomeContainer>
 //     )
 // }
