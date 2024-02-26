@@ -42,13 +42,12 @@ const ArtistList = ({ playlistID, limit }: ArtistListProps) => {
             <PlaylistTitle>{playlist.title}</PlaylistTitle>
             <PicListContainer>
                 {artists.map((artist, index) => (
-                    <ArtistImgNameContainer>
+                    <ArtistImgNameContainer key={index}>
                         <img src={artist["picture_medium"]} width='100' height='100' key={index} />
                         <ArtistName>{artist["name"]}</ArtistName>
                     </ArtistImgNameContainer>
                 ))}
             </PicListContainer>
-
         </ArtistListContainer>
   )
 }
@@ -59,10 +58,10 @@ const ArtistListContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border: 1px solid red;
     width: 100%;
     padding-left: 2rem;
     padding-bottom: 1rem;
+    padding-top: 1rem;
     `
 
 const PlaylistTitle = styled.h2`

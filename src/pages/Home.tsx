@@ -5,13 +5,15 @@ import ArtistList from '../components/ArtistList';
 const Home = () => {
 
     return (
-        <>
+        <HomeContainer>
             <SearchBarContainer>
                 <h1>Choose an artist</h1>
                 <SearchBar />
-                <ArtistList playlistID='1313621735' limit={5}/>
             </SearchBarContainer>
-        </>
+            <ArtistList playlistID='1313621735' limit={1}/>
+            <ArtistList playlistID='3155776842' limit={1}/>
+            <ArtistList playlistID='6614423884' limit={1}/>
+        </HomeContainer>
     )
 }
 
@@ -22,5 +24,12 @@ const SearchBarContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid #000;
+    width: 100%;
+    `
+
+const HomeContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     `

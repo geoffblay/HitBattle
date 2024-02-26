@@ -21,8 +21,9 @@ export default NavBar;
 const NavbarContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    border: 1px solid #000;
     padding: 10px 20px;
+    padding-top: 20px;
+    width: 100%;
     ` 
 
 const LogoContainer = styled.div`
@@ -37,6 +38,7 @@ const Logo = styled.img`
     `
 
 const LoginReg = styled.h3`
+    padding-right: 30px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
