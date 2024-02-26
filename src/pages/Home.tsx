@@ -9,7 +9,7 @@ const Home = () => {
             <SearchBarContainer>
                 <h1>Choose an artist</h1>
                 <SearchBar />
-                <ArtistList playlistID='1313621735' />
+                <ArtistList playlistID='1313621735' limit={5}/>
             </SearchBarContainer>
         </>
     )
