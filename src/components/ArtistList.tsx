@@ -1,17 +1,23 @@
 import styled from 'styled-components';
 import { getPlaylist } from '../api/GetPlaylist';
 import { useEffect, useState } from 'react';
-import ArtistPic from './ArtistPic';
-import { getArtistPic } from '../api/GetArtistPic';
+import { getArtist } from '../api/GetArtistPic';
+
 interface ArtistListProps {
     playlistID: string;
     limit?: number;
 }
 
+interface Artist {
+    id: string;
+    name: string;
+    picture_medium: string;
+}
+
 const ArtistList = ({ playlistID, limit }: ArtistListProps) => {
     const [playlist, setPlaylist] = useState<any>({});
     const [artistIDs, setArtistIDs] = useState<string[]>([]);
-    const [artistPics, setArtistPics] = useState<string[]>([]);
+    const [artists, setArtists] = useState<Artist[]>([]);
 
     useEffect(() => {
         getPlaylist(playlistID).then(data => {
@@ -22,21 +28,24 @@ const ArtistList = ({ playlistID, limit }: ArtistListProps) => {
     }, [playlistID]);
 
     useEffect(() => {
-        const fetchArtistPics = async () => {
+        const fetchArtists = async () => {
             const limitedArtistIDs = artistIDs.slice(0, limit);
-            const pics = await Promise.all(limitedArtistIDs.map(id => getArtistPic(id)));
-            setArtistPics(pics);
+            const artists = await Promise.all(limitedArtistIDs.map(id => getArtist(id)));
+            setArtists(artists.map(({ id, name, picture_medium }) => ({ id, name, picture_medium })));
         };
     
-        fetchArtistPics();
+        fetchArtists();
     }, [artistIDs]);
 
     return (
         <ArtistListContainer>
             <PlaylistTitle>{playlist.title}</PlaylistTitle>
             <PicListContainer>
-                {artistPics.map((pic, index) => (
-                    <ArtistPic key={index} pic={pic} width="100px" height="100px" />
+                {artists.map((artist, index) => (
+                    <ArtistImgNameContainer>
+                        <img src={artist["picture_medium"]} width='100' height='100' key={index} />
+                        <ArtistName>{artist["name"]}</ArtistName>
+                    </ArtistImgNameContainer>
                 ))}
             </PicListContainer>
 
@@ -53,6 +62,7 @@ const ArtistListContainer = styled.div`
     border: 1px solid red;
     width: 100%;
     padding-left: 2rem;
+    padding-bottom: 1rem;
     `
 
 const PlaylistTitle = styled.h2`
@@ -64,4 +74,20 @@ const PicListContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    gap: 1rem;
+    `
+
+const ArtistImgNameContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease;
+    object-fit: cover;
+    &:hover {
+        transform: scale(1.1);
+    }
+    `
+
+const ArtistName = styled.p`
+    font-size: 14px;
     `
