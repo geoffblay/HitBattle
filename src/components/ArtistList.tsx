@@ -60,8 +60,6 @@ const ArtistListContainer = styled.div`
     align-items: flex-start;
     width: 100%;
     padding-left: 2rem;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
     `
 
 const PlaylistTitle = styled.h2`
