@@ -2,19 +2,17 @@ import styled from 'styled-components';
 import { getPlaylist } from '../api/GetPlaylist';
 import { useEffect, useState } from 'react';
 import { getArtist } from '../api/GetArtistPic';
+import check from '../assets/check-bold.svg';
+import { Artist } from '../types';
 
 interface ArtistListProps {
     playlistID: string;
     limit?: number;
+    onArtistSelect: (artist: Artist) => void;
+    selectedArtist: Artist | null;
 }
 
-interface Artist {
-    id: string;
-    name: string;
-    picture_medium: string;
-}
-
-const ArtistList = ({ playlistID, limit }: ArtistListProps) => {
+const ArtistList = ({ playlistID, limit, onArtistSelect, selectedArtist }: ArtistListProps) => {
     const [playlist, setPlaylist] = useState<any>({});
     const [artistIDs, setArtistIDs] = useState<string[]>([]);
     const [artists, setArtists] = useState<Artist[]>([]);
@@ -41,12 +39,23 @@ const ArtistList = ({ playlistID, limit }: ArtistListProps) => {
         <ArtistListContainer>
             <PlaylistTitle>{playlist.title}</PlaylistTitle>
             <PicListContainer>
-                {artists.map((artist, index) => (
-                    <ArtistImgNameContainer key={index}>
-                        <img src={artist["picture_medium"]} width='100' height='100' key={index} />
-                        <ArtistName>{artist["name"]}</ArtistName>
-                    </ArtistImgNameContainer>
-                ))}
+                {artists.map((artist, index) => {
+                    const isSelected = artist.id === selectedArtist?.id;
+
+                    return (
+                        <ArtistImgNameContainer 
+                            key={index}
+                            onClick={() => {
+                                onArtistSelect(artist);
+                            }}
+                            style={{
+                                border: isSelected ? '2px solid #1DB954' : 'none',  
+                            }}>
+                            <img src={artist["picture_medium"]} width='100' height='100' key={index} />
+                            <ArtistName>{artist["name"]}</ArtistName>
+                        </ArtistImgNameContainer>
+                    );
+                })}
             </PicListContainer>
         </ArtistListContainer>
   )
