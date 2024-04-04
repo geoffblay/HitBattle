@@ -1,6 +1,7 @@
 import NavBar from './components/NavBar'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
+import NextArtist from './pages/NextArtist'
 import 'normalize.css'
 import { createGlobalStyle } from 'styled-components'
 
@@ -11,6 +12,7 @@ function App() {
             <NavBar />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/nextartist" element={<NextArtist />} />
             </Routes>
         </BrowserRouter>
     )

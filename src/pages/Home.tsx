@@ -1,16 +1,27 @@
 import styled from 'styled-components';
 import SearchBar from '../components/SearchBar';
 import ArtistList from '../components/ArtistList';
-import NextArtistButton from '../components/NextArtistButton';
-import { useState } from 'react';
+import MediumButton from '../components/MediumButton';
+import { useEffect, useState } from 'react';
 import { Artist } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
     const [selectedArtist, setSelectedArtist] = useState<any>(null);
+
+    useEffect(() => {
+        localStorage.setItem('artist1', JSON.stringify(selectedArtist));
+    }, [selectedArtist]);
 
     const handleArtistSelect = (artist: Artist) => {
         setSelectedArtist(artist);
         localStorage.setItem('artist1', JSON.stringify(artist));
+    }
+
+    const handleNextArtist = () => {
+        setSelectedArtist(null);
+        navigate('/nextartist');
     }
 
     return (
@@ -27,7 +38,9 @@ const Home = () => {
                             <img src={selectedArtist.picture_medium} width='100' height='100' />
                             <h3>{selectedArtist.name}</h3>
                         </CurrentArtist>
-                        <NextArtistButton />
+                        <MediumButton title='Next Artist' onClick={() => {
+                            handleNextArtist();
+                        }} />
                     </>
                 )}
             </CurrentArtistContainer>

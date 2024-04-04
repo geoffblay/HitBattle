@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { getPlaylist } from '../api/GetPlaylist';
 import { useEffect, useState } from 'react';
 import { getArtist } from '../api/GetArtistPic';
-import check from '../assets/check-bold.svg';
 import { Artist } from '../types';
 
 interface ArtistListProps {

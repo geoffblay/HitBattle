@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 
-const NextArtistButton = () => {
+interface ButtonProps {
+    title: string;
+    onClick: () => void;
+}
+
+const MediumButton = ({ title, onClick }: ButtonProps) => {
     return (
-        <ArtistButton>Next Artist</ArtistButton>
+        <Button onClick={onClick}>{title}</Button>
     )
 }
 
-export default NextArtistButton
+export default MediumButton
 
-const ArtistButton = styled.button`
+const Button = styled.button`
     padding: 10px 20px;
     background-color: #000;
     color: #fff;
