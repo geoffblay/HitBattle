@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import SearchBar from '../components/SearchBar';
 import ArtistList from '../components/ArtistList';
+import NextArtistButton from '../components/NextArtistButton';
 import { useState } from 'react';
 import { Artist } from '../types';
 
@@ -20,11 +21,14 @@ const Home = () => {
             </SearchBarContainer>
             <CurrentArtistContainer>
                 {selectedArtist && (
-                    <CurrentArtist>
+                    <>
                         <h2>Current Artist</h2>
-                        <img src={selectedArtist.picture_medium} width='100' height='100' />
-                        <h3>{selectedArtist.name}</h3>
-                    </CurrentArtist>
+                        <CurrentArtist>
+                            <img src={selectedArtist.picture_medium} width='100' height='100' />
+                            <h3>{selectedArtist.name}</h3>
+                        </CurrentArtist>
+                        <NextArtistButton />
+                    </>
                 )}
             </CurrentArtistContainer>
             <ArtistList playlistID='1313621735' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
@@ -54,6 +58,7 @@ const HomeContainer = styled.div`
 
 const CurrentArtistContainer = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -65,4 +70,9 @@ const CurrentArtist = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+
+    h3 {
+        margin: 0;
+        margin-bottom: 1rem;
+    }
     `
