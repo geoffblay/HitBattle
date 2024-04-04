@@ -18,7 +18,7 @@ const NextArtist = () => {
 
     const handleNextArtist = () => {
         setSelectedArtist(null);
-        navigate('/nextartist');
+        navigate('/battlesetup');
     }
 
     return (
@@ -45,7 +45,7 @@ const NextArtist = () => {
                     </CurrentArtistContainer>
                 )}
             </PrevAndCurrentArtistContainer>
-            {selectedArtist && <MediumButton title='Next Artist' onClick={() => {
+            {selectedArtist && <MediumButton title='Battle!' onClick={() => {
                 handleNextArtist();
             }} />}
             <ArtistList playlistID='1313621735' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
