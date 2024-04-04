@@ -30,20 +30,18 @@ const Home = () => {
                 <h1>Choose an artist...</h1>
                 <SearchBar />
             </SearchBarContainer>
-            <CurrentArtistContainer>
-                {selectedArtist && (
-                    <>
-                        <h2>Current Artist</h2>
-                        <CurrentArtist>
-                            <img src={selectedArtist.picture_medium} width='100' height='100' />
-                            <h3>{selectedArtist.name}</h3>
-                        </CurrentArtist>
-                        <MediumButton title='Next Artist' onClick={() => {
-                            handleNextArtist();
-                        }} />
-                    </>
-                )}
-            </CurrentArtistContainer>
+            {selectedArtist && (
+                <CurrentArtistContainer>
+                    <h2>Current Artist</h2>
+                    <CurrentArtist>
+                        <img src={selectedArtist.picture_medium} width='100' height='100' />
+                        <h3>{selectedArtist.name}</h3>
+                    </CurrentArtist>       
+                </CurrentArtistContainer>
+            )}
+            {selectedArtist && <MediumButton title='Next Artist' onClick={() => {
+                handleNextArtist();
+            }} />}
             <ArtistList playlistID='1313621735' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
             <ArtistList playlistID='3155776842' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
             <ArtistList playlistID='6614423884' limit={5} onArtistSelect={handleArtistSelect} selectedArtist={selectedArtist}/>
@@ -75,7 +73,7 @@ const CurrentArtistContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     `
 
 const CurrentArtist = styled.div`

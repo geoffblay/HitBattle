@@ -37,11 +37,11 @@ const NextArtist = () => {
                 </CurrentArtistContainer>
                 {selectedArtist && (
                     <CurrentArtistContainer>
-                            <h2>Current Artist</h2>
-                            <CurrentArtist>
-                                <img src={selectedArtist.picture_medium} width='100' height='100' />
-                                <h3>{selectedArtist.name}</h3>
-                            </CurrentArtist>
+                        <h2>Current Artist</h2>
+                        <CurrentArtist>
+                            <img src={selectedArtist.picture_medium} width='100' height='100' />
+                            <h3>{selectedArtist.name}</h3>
+                        </CurrentArtist>
                     </CurrentArtistContainer>
                 )}
             </PrevAndCurrentArtistContainer>
@@ -79,7 +79,7 @@ const CurrentArtistContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 50;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     `
 
 const CurrentArtist = styled.div`
