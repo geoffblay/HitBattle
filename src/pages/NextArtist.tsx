@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import SearchBar from '../components/SearchBar';
 import ArtistList from '../components/ArtistList';
 import MediumButton from '../components/MediumButton';
+import ArtistBox from '../components/ArtistBox';
 import { useState } from 'react';
 import { Artist } from '../types';
 import { useNavigate } from 'react-router-dom';
@@ -28,21 +29,9 @@ const NextArtist = () => {
                 <SearchBar />
             </SearchBarContainer>
             <PrevAndCurrentArtistContainer>
-                <CurrentArtistContainer>
-                    <h2>Previous Artist</h2>
-                    <CurrentArtist>
-                        <img src={artist1.picture_medium} width='100' height='100' />
-                        <h3>{artist1.name}</h3>
-                    </CurrentArtist>
-                </CurrentArtistContainer>
+                <ArtistBox selectedArtist={artist1} title='Previous Artist'/>
                 {selectedArtist && (
-                    <CurrentArtistContainer>
-                        <h2>Current Artist</h2>
-                        <CurrentArtist>
-                            <img src={selectedArtist.picture_medium} width='100' height='100' />
-                            <h3>{selectedArtist.name}</h3>
-                        </CurrentArtist>
-                    </CurrentArtistContainer>
+                    <ArtistBox selectedArtist={selectedArtist} title='Current Artist'/>
                 )}
             </PrevAndCurrentArtistContainer>
             {selectedArtist && <MediumButton title='Battle!' onClick={() => {
