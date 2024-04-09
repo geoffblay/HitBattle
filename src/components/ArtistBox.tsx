@@ -3,19 +3,30 @@ import { Artist } from '../types'
 
 interface ArtistBoxProps {
     selectedArtist: Artist;
-    title: string;
+    title: string | null;
+    size?: 'small' | 'medium' | 'large';
 }
 
-const ArtistBox = ({ selectedArtist, title }: ArtistBoxProps) => {
-  return (
-    <CurrentArtistContainer>
-        <h2>{title}</h2>
-        <CurrentArtist>
-            <img src={selectedArtist.picture_medium} width='100' height='100' />
-            <h3>{selectedArtist.name}</h3>
-        </CurrentArtist>       
-    </CurrentArtistContainer>
-  )
+const ArtistBox = ({ selectedArtist, title, size = 'medium' }: ArtistBoxProps) => {
+    let width = 100;
+    let height = 100;
+    if (size === 'small') {
+        width = 50;
+        height = 50;
+    } else if (size === 'large') {
+        width = 200;
+        height = 200;
+    }
+
+    return (
+        <CurrentArtistContainer>
+            {title && <h2>{title}</h2>}
+            <CurrentArtist>
+                <img src={selectedArtist.picture_medium} width={width} height={height} />
+                <h3>{selectedArtist.name}</h3>
+            </CurrentArtist>
+        </CurrentArtistContainer>
+    )
 }
 
 export default ArtistBox

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const NextArtist = () => {
     const navigate = useNavigate();
-    const [selectedArtist, setSelectedArtist] = useState<any>(null);
+    const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
     const artist1 = JSON.parse(localStorage.getItem('artist1') || '{}');
 
     const handleArtistSelect = (artist: Artist) => {
