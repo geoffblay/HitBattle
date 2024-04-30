@@ -13,9 +13,9 @@ interface SelectProps {
 }
 
 const CustomSelect = ({ label, options, value, onChange }: SelectProps) => {
-  const handleChange = (event: SelectChangeEvent) => {
-    onChange(event.target.value as string | number);
-  };
+//   const handleChange = (event: SelectChangeEvent) => {
+//     onChange(event.target.value as string | number);
+//   };
 
   return (
     <Box sx={{ minWidth: 150 }}>
@@ -26,7 +26,7 @@ const CustomSelect = ({ label, options, value, onChange }: SelectProps) => {
           id="demo-simple-select"
           value={value}
           label={label}
-          onChange={handleChange}
+        //   onChange={handleChange}
           style={{ width: '15rem' }}
         >
           {options.map(option => (

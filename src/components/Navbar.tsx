@@ -9,7 +9,7 @@ const NavBar = () => {
             <LogoContainer>
                 <Logo src={logo} alt="HitBattle logo" onClick={() => navigate('/')} />
             </LogoContainer>
-            <LoginReg>
+            <LoginReg onClick={() => navigate('/auth')}>
                 Login/Register
             </LoginReg>
         </NavbarContainer>
