@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { searchArtists } from '../api/SearchArtists';
 import { set } from 'firebase/database';
 import { Artist } from '../types';
+import SearchResult from './SearchResult';
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState<string>('');
@@ -42,21 +43,13 @@ const SearchBar = () => {
                 value={searchQuery}
                 onChange={handleInputChange}
             />
-            {searching ? (
+            {searchQuery && searching ? (
                 <p>Searching...</p>
             ) : (
-                <ul>
-                    {searchResults.map((artist, index) => (
-                        <li key={index}>
-                            {/* <img src={artist.picture_medium} width='50' height='50' /> */}
-                            {artist.name}
-                        </li>
-                    ))}
-                </ul>
-            )
-        }
-
-            
+                searchQuery && searchResults.map((artist, index) => (
+                    <SearchResult key={index} artist={artist} />
+                ))
+            )}
         </div>
     )
 }
