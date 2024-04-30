@@ -18,7 +18,6 @@ const Login = () => {
             ],
             signInSuccessUrl: '/',
         });
-
     }, [])
 
     return (

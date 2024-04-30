@@ -1,16 +1,36 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import { app } from '../firebase/firebaseConfig';
+import { useEffect, useState } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { User } from 'firebase/auth';
 
 const NavBar = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState<User | null>(null);
+    const [displayName, setDisplayName] = useState<string | null>(null);
+
+    useEffect(() => {
+        const auth = getAuth(app);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user);
+                setDisplayName(user.displayName);
+            } else {
+                setUser(null);
+                setDisplayName(null);
+            }
+        });
+    }, [user, setUser]);
+
     return (
         <NavbarContainer>
             <LogoContainer>
                 <Logo src={logo} alt="HitBattle logo" onClick={() => navigate('/')} />
             </LogoContainer>
             <LoginReg onClick={() => navigate('/login')}>
-                Login/Register
+                {user ? `Welcome, ${displayName}` : 'Login / Register'}
             </LoginReg>
         </NavbarContainer>
     );
@@ -38,7 +58,7 @@ const Logo = styled.img`
     `
 
 const LoginReg = styled.h3`
-    padding-right: 30px;
+    margin-right: 2.5rem;
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
