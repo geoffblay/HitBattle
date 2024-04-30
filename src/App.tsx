@@ -6,6 +6,7 @@ import 'normalize.css'
 import { createGlobalStyle } from 'styled-components'
 import BattleSetup from './pages/BattleSetup'
 import Login from './pages/Login'
+import Account from './pages/Account'
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/nextartist" element={<NextArtist />} />
                 <Route path="/battlesetup" element={<BattleSetup />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/account" element={<Account />} />
             </Routes>
         </BrowserRouter>
     )

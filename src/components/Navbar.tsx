@@ -24,12 +24,20 @@ const NavBar = () => {
         });
     }, [user, setUser]);
 
+    const handleLoginRegClick = () => {
+        if (user) {
+            navigate('/account');
+        } else {
+            navigate('/login');
+        }
+    }
+
     return (
         <NavbarContainer>
             <LogoContainer>
                 <Logo src={logo} alt="HitBattle logo" onClick={() => navigate('/')} />
             </LogoContainer>
-            <LoginReg onClick={() => navigate('/login')}>
+            <LoginReg onClick={() => handleLoginRegClick()}>
                 {user ? `Welcome, ${displayName}` : 'Login / Register'}
             </LoginReg>
         </NavbarContainer>
