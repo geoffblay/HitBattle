@@ -5,7 +5,7 @@ import NextArtist from './pages/NextArtist'
 import 'normalize.css'
 import { createGlobalStyle } from 'styled-components'
 import BattleSetup from './pages/BattleSetup'
-import Auth from './pages/Auth'
+import Login from './pages/Login'
 
 function App() {
     return (
@@ -16,7 +16,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/nextartist" element={<NextArtist />} />
                 <Route path="/battlesetup" element={<BattleSetup />} />
-                <Route path="/auth" element={<Auth />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
         </BrowserRouter>
     )
