@@ -7,6 +7,7 @@ import { useState } from "react"
 import { getArtistAlbums } from "../api/GetArtistAlbums"
 import { useEffect } from "react"
 import CustomSwitch from "../components/Switch"
+import MediumButton from "../components/MediumButton"
 
 const BattleSetup = () => {
     const artist1: Artist = JSON.parse(localStorage.getItem('artist1') || '{}');
@@ -25,6 +26,8 @@ const BattleSetup = () => {
 
     const [shuffle, setShuffle] = useState(false);
 
+    const [ready, setReady] = useState(false);
+
     useEffect(() => {
         const fetchAlbums = async () => {
             const artist1Albums = await getArtistAlbums(artist1);
@@ -35,6 +38,30 @@ const BattleSetup = () => {
 
         fetchAlbums();
     }, []);
+
+    useEffect(() => {
+        setArtist1Album(null);
+        setArtist2Album(null);
+    }, [battleType]);
+
+    useEffect(() => {
+        if (battleType === 'Album' && artist1Album && artist2Album) {
+            setReady(true);
+        } else if (battleType !== 'Album') {
+            setReady(true);
+        } else {
+            setReady(false);
+        }
+    }
+    , [battleType, artist1Album, artist2Album]);
+
+    const handleBattle = () => {
+        localStorage.setItem('battleType', battleType);
+        localStorage.setItem('numTracks', String(numTracks));
+        localStorage.setItem('shuffle', String(shuffle));
+        localStorage.setItem('artist1Album', JSON.stringify(artist1Album));
+        localStorage.setItem('artist2Album', JSON.stringify(artist2Album));
+    }
     
 
     return (
@@ -81,6 +108,13 @@ const BattleSetup = () => {
                     onChange={setShuffle}
                 />
             </DropdownsContainer>
+            <MediumButton title='Battle!' active={ready} onClick={() => {
+                localStorage.setItem('battleType', battleType);
+                localStorage.setItem('numTracks', String(numTracks));
+                localStorage.setItem('shuffle', String(shuffle));
+                localStorage.setItem('artist1Album', JSON.stringify(artist1Album));
+                localStorage.setItem('artist2Album', JSON.stringify(artist2Album));
+            }}/>
         </BattleSetupContainer>
     )
 }

@@ -1,28 +1,34 @@
 import styled from 'styled-components';
 
 interface ButtonProps {
-    title: string;
+    // title: string;
+    active?: boolean;
     onClick: () => void;
 }
 
-const MediumButton = ({ title, onClick }: ButtonProps) => {
+interface TitledButtonProps extends ButtonProps {
+    title: string;
+}
+
+const MediumButton = ({ title, active=true, onClick }: TitledButtonProps) => {
     return (
-        <Button onClick={onClick}>{title}</Button>
+        <Button active={active} onClick={onClick}>{title}</Button>
     )
 }
 
 export default MediumButton
 
-const Button = styled.button`
+const Button = styled.button<ButtonProps>`
     padding: 10px 20px;
-    background-color: #000;
-    color: #fff;
-    border: 2px solid #000;
+    background-color: ${props => props.active ? '#000' : '#ccc'};
+    color: ${props => props.active ? '#fff' : '#888'};
+    border: ${props => props.active ? '2px solid #000' : '2px solid #ccc'};
     border-radius: 20px;
-    cursor: pointer;
+    cursor: ${props => props.active ? 'pointer' : 'default'};
 
     &:hover {
-        background-color: #fff;
-        color: #000;
+        background-color: ${props => props.active ? '#fff' : '#ccc'};
+        color: ${props => props.active ? '#000' : '#888'};
     }
-  `
+    margin-top: 1rem;
+`
