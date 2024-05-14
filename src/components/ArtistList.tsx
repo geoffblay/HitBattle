@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { getPlaylist } from '../api/GetPlaylist';
 import { useEffect, useState } from 'react';
-import { getArtist } from '../api/GetArtistPic';
+import { getArtist } from '../api/GetArtist';
 import { Artist } from '../types';
 
 interface ArtistListProps {
@@ -28,7 +28,7 @@ const ArtistList = ({ playlistID, limit, onArtistSelect, selectedArtist }: Artis
         const fetchArtists = async () => {
             const limitedArtistIDs = artistIDs.slice(0, limit);
             const artists = await Promise.all(limitedArtistIDs.map(id => getArtist(id)));
-            setArtists(artists.map(({ id, name, picture_medium }) => ({ id, name, picture_medium })));
+            setArtists(artists);
         };
     
         fetchArtists();

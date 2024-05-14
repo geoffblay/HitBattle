@@ -15,14 +15,7 @@ const SearchBar = () => {
     }, [searchQuery]);
 
     const search = async () => {
-        searchArtists(searchQuery).then(data => {
-            const artists = data['data'].map((artist: any) => {
-                return {
-                    id: artist.id,
-                    name: artist.name,
-                    picture_medium: artist.picture_medium,
-                }
-            });
+        searchArtists(searchQuery).then((artists) => {
             const limitedArtists = artists.slice(0, 5);
             setSearchResults(limitedArtists);
             setSearching(false);
