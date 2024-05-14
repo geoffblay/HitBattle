@@ -6,8 +6,7 @@ import swords from '../assets/sword-cross.svg'
 import { useState } from "react"
 import { getArtistAlbums } from "../api/GetArtistAlbums"
 import { useEffect } from "react"
-import { set } from "firebase/database"
-
+import CustomSwitch from "../components/Switch"
 
 const BattleSetup = () => {
     const artist1: Artist = JSON.parse(localStorage.getItem('artist1') || '{}');
@@ -23,6 +22,8 @@ const BattleSetup = () => {
 
     const [artist1AlbumOptions, setArtist1AlbumOptions] = useState<Album[]>([]);
     const [artist2AlbumOptions, setArtist2AlbumOptions] = useState<Album[]>([]);
+
+    const [shuffle, setShuffle] = useState(false);
 
     useEffect(() => {
         const fetchAlbums = async () => {
@@ -75,6 +76,10 @@ const BattleSetup = () => {
                     value={numTracks}
                     onChange={setNumTracks}
                 />
+                <CustomSwitch 
+                    label="Shuffle" 
+                    onChange={setShuffle}
+                />
             </DropdownsContainer>
         </BattleSetupContainer>
     )
@@ -105,6 +110,7 @@ const DropdownsContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    align-items: center;
     `
 
 const AlbumDropdownContainer = styled.div`
