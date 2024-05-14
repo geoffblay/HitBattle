@@ -10,6 +10,7 @@ const BattleSetup = () => {
     const artist1: Artist = JSON.parse(localStorage.getItem('artist1') || '{}');
     const artist2: Artist = JSON.parse(localStorage.getItem('artist2') || '{}');
     const [battleType, setBattleType] = useState('Top Tracks');
+    const [numTracks, setNumTracks] = useState(5);
 
     return (
         <BattleSetupContainer>
@@ -18,15 +19,25 @@ const BattleSetup = () => {
                 <Swords src={swords} width='50' height='50'/>
                 <ArtistBox selectedArtist={artist2} title={null} size="large"/>
             </ArtistContainer>
-            <Dropdown 
-                label="Battle Type" options={[
-                    { value: 'Top Tracks', label: 'Top Tracks' },
-                    { value: 'Random', label: 'Random' },
-                    { value: 'Album', label: 'Album' }
-                ]} 
-                value={battleType}
-                onChange={(value) => {console.log(value)}}
-            />
+            <DropdownsContainer>
+                <Dropdown 
+                    label="Battle Type" options={[
+                        { value: 'Top Tracks', label: 'Top Tracks' },
+                        { value: 'Random', label: 'Random' },
+                        { value: 'Album', label: 'Album' }
+                    ]} 
+                    value={battleType}
+                    onChange={(value) => {console.log(value)}}
+                />
+                {/* <AlbumDropdownContainer>
+                </AlbumDropdownContainer> */}
+                <Dropdown
+                    label="Number of tracks" 
+                    options={Array.from({ length: 20 }, (_, i) => ({ value: i + 1, label: String(i + 1) }))}
+                    value={numTracks}
+                    onChange={(value) => {console.log(value)}}
+                />
+            </DropdownsContainer>
         </BattleSetupContainer>
     )
 }
@@ -51,3 +62,10 @@ const ArtistContainer = styled.div`
 const Swords = styled.img`
     margin-top: 5rem;
     `
+
+const DropdownsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    `
+
