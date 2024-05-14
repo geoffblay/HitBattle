@@ -8,8 +8,11 @@ import { getArtistAlbums } from "../api/GetArtistAlbums"
 import { useEffect } from "react"
 import CustomSwitch from "../components/Switch"
 import MediumButton from "../components/MediumButton"
+import { useNavigate } from "react-router-dom"
 
 const BattleSetup = () => {
+    const navigate = useNavigate();
+
     const artist1: Artist = JSON.parse(localStorage.getItem('artist1') || '{}');
     const artist2: Artist = JSON.parse(localStorage.getItem('artist2') || '{}');
     const [battleType, setBattleType] = useState('Top Tracks');
@@ -61,6 +64,8 @@ const BattleSetup = () => {
         localStorage.setItem('shuffle', String(shuffle));
         localStorage.setItem('artist1Album', JSON.stringify(artist1Album));
         localStorage.setItem('artist2Album', JSON.stringify(artist2Album));
+
+        navigate('/battle');
     }
     
 
@@ -109,11 +114,7 @@ const BattleSetup = () => {
                 />
             </DropdownsContainer>
             <MediumButton title='Battle!' active={ready} onClick={() => {
-                localStorage.setItem('battleType', battleType);
-                localStorage.setItem('numTracks', String(numTracks));
-                localStorage.setItem('shuffle', String(shuffle));
-                localStorage.setItem('artist1Album', JSON.stringify(artist1Album));
-                localStorage.setItem('artist2Album', JSON.stringify(artist2Album));
+                handleBattle();
             }}/>
         </BattleSetupContainer>
     )

@@ -7,6 +7,7 @@ import { createGlobalStyle } from 'styled-components'
 import BattleSetup from './pages/BattleSetup'
 import Login from './pages/Login'
 import Account from './pages/Account'
+import Battle from './pages/Battle'
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/battlesetup" element={<BattleSetup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/account" element={<Account />} />
+                <Route path="/battle" element={<Battle />} />
             </Routes>
         </BrowserRouter>
     )
