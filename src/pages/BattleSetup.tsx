@@ -9,8 +9,17 @@ import { useEffect } from "react"
 import CustomSwitch from "../components/Switch"
 import MediumButton from "../components/MediumButton"
 import { useNavigate } from "react-router-dom"
+import { getAlbumTracks } from "../api/GetAlbumTracks"
+import { set } from "firebase/database"
 
 const BattleSetup = () => {
+    const placeholderAlbum: Album = {
+        id: '',
+        title: 'placeholder',
+        cover_medium: '',
+        tracks: []
+    }
+
     const navigate = useNavigate();
 
     const artist1: Artist = JSON.parse(localStorage.getItem('artist1') || '{}');
@@ -18,8 +27,11 @@ const BattleSetup = () => {
     const [battleType, setBattleType] = useState('Top Tracks');
     const [numTracks, setNumTracks] = useState(5);
 
-    const [artist1Album, setArtist1Album] = useState<Album | null>(null);
-    const [artist2Album, setArtist2Album] = useState<Album | null>(null);
+    const [artist1Album, setArtist1Album] = useState<Album>(placeholderAlbum);
+    const [artist2Album, setArtist2Album] = useState<Album>(placeholderAlbum);
+
+    const [artist1AlbumID, setArtist1AlbumID] = useState<string>('');
+    const [artist2AlbumID, setArtist2AlbumID] = useState<string>('');
 
     const [artist1Tracks, setArtist1Tracks] = useState<Track[]>([]);
     const [artist2Tracks, setArtist2Tracks] = useState<Track[]>([]);
@@ -35,17 +47,38 @@ const BattleSetup = () => {
         const fetchAlbums = async () => {
             const artist1Albums = await getArtistAlbums(artist1);
             const artist2Albums = await getArtistAlbums(artist2);
+
             setArtist1AlbumOptions(artist1Albums);
             setArtist2AlbumOptions(artist2Albums);
         };
 
         fetchAlbums();
+        // setArtist1Album(artist1AlbumOptions[0]);
+        // setArtist2Album(artist2AlbumOptions[0]);
+
+        // console.log(artist1AlbumOptions);
+
     }, []);
 
     useEffect(() => {
-        setArtist1Album(null);
-        setArtist2Album(null);
-    }, [battleType]);
+        setArtist1Album(artist1AlbumOptions[0]);
+    }, [artist1AlbumOptions]);
+
+    useEffect(() => {
+        setArtist2Album(artist2AlbumOptions[0]);
+    }, [artist2AlbumOptions]);
+
+    useEffect(() => {
+        setArtist1Album(artist1AlbumOptions.find((album) => album.id === artist1AlbumID) || placeholderAlbum);
+    }, [artist1AlbumID]);
+
+    useEffect(() => {
+        setArtist2Album(artist2AlbumOptions.find((album) => album.id === artist2AlbumID) || placeholderAlbum);
+    }, [artist2AlbumID]);
+
+    // useEffect(() => {
+    //     console.log(artist1Album);
+    // }, [artist1Album]);
 
     useEffect(() => {
         if (battleType === 'Album' && artist1Album && artist2Album) {
@@ -65,6 +98,22 @@ const BattleSetup = () => {
         localStorage.setItem('artist1Album', JSON.stringify(artist1Album));
         localStorage.setItem('artist2Album', JSON.stringify(artist2Album));
 
+        if (battleType === 'Album' && artist1Album && artist2Album) {
+            const fetchAlbumTracks = async () => {
+                const album1Tracks = await getAlbumTracks(artist1Album);
+                const album2Tracks = await getAlbumTracks(artist2Album);
+
+                setArtist1Tracks(album1Tracks);
+                setArtist2Tracks(album2Tracks);
+            }
+
+            fetchAlbumTracks();
+
+        }
+
+        localStorage.setItem('artist1Tracks', JSON.stringify(typeof artist1Album === 'string' ? [] : artist1Album?.tracks));
+        localStorage.setItem('artist2Tracks', JSON.stringify(typeof artist2Album === 'string' ? [] : artist2Album?.tracks));
+
         navigate('/battle');
     }
     
@@ -78,7 +127,8 @@ const BattleSetup = () => {
             </ArtistContainer>
             <DropdownsContainer>
                 <Dropdown 
-                    label="Battle Type" options={[
+                    label="Battle Type" 
+                    options={[
                         { value: 'Top Tracks', label: 'Top Tracks' },
                         { value: 'Random', label: 'Random' },
                         { value: 'Album', label: 'Album' }
@@ -92,13 +142,13 @@ const BattleSetup = () => {
                             label="Artist 1 Album" 
                             options={artist1AlbumOptions.map((album) => ({ value: album.id, label: album.title }))}
                             value={artist1Album?.id}
-                            onChange={setArtist1Album}
+                            onChange={setArtist1AlbumID}
                         />
                         <Dropdown
                             label="Artist 2 Album" 
                             options={artist2AlbumOptions.map((album) => ({ value: album.id, label: album.title }))}
                             value={artist2Album?.id}
-                            onChange={setArtist2Album}
+                            onChange={setArtist2AlbumID}
                         />
                     </AlbumDropdownContainer>
                 )}
@@ -113,7 +163,7 @@ const BattleSetup = () => {
                     onChange={setShuffle}
                 />
             </DropdownsContainer>
-            <MediumButton title='Battle!' active={ready} onClick={() => {
+            <MediumButton title='Battle!' isactive={ready.toString()} onClick={() => {
                 handleBattle();
             }}/>
         </BattleSetupContainer>

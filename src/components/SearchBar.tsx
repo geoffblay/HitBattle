@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { searchArtists } from '../api/SearchArtists';
-import { set } from 'firebase/database';
 import { Artist } from '../types';
 import SearchResult from './SearchResult';
 
@@ -11,7 +10,9 @@ const SearchBar = () => {
     const [searching, setSearching] = useState<boolean>(false);
 
     useEffect(() => {
-        search();
+        if (searchQuery) {
+            search();
+        }
     }, [searchQuery]);
 
     const search = async () => {
