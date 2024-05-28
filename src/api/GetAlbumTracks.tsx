@@ -1,4 +1,4 @@
-import { Album, Track } from "../types";
+import { Album, Track, Artist } from "../types";
 
 async function getAlbumTracks(album: Album) {
     const response = await fetch(`/api/album/${album.id}/tracks`);
@@ -7,6 +7,14 @@ async function getAlbumTracks(album: Album) {
         return {
             id: track.id,
             title: track.title,
+            picture_medium: track.album.cover_medium,
+            contributors: track.contributors.map((contributor: any): Artist => {
+                return {
+                    id: contributor.id,
+                    name: contributor.name,
+                    picture_medium: contributor.picture_medium
+                };
+            })
         }
     });
 }

@@ -5,8 +5,16 @@ import { getArtistTopTracks } from '../api/GetArtistTopTracks'
 import styled from 'styled-components';
 import ArtistBox from "../components/ArtistBox"
 import swords from '../assets/sword-cross.svg'
+import TrackMatchup from '../components/TrackMatchup';
 
 const Battle = () => {
+    const placeholderTrack: Track = {
+        id: '',
+        title: 'i hate thuis',
+        picture_medium: '',
+        contributors: []
+    }
+
     const artist1 = JSON.parse(localStorage.getItem('artist1') || '{}');
     const artist2 = JSON.parse(localStorage.getItem('artist2') || '{}');
 
@@ -24,28 +32,38 @@ const Battle = () => {
 
     useEffect(() => {
         if (battleType === 'Top Tracks') {
-            getArtistTopTracks(artist1, Number(numTracks)).then((tracks) => {
-                setArtist1Tracks(tracks);
-            });
-            getArtistTopTracks(artist2, Number(numTracks)).then((tracks) => {
-                setArtist2Tracks(tracks);
-            });
+            const fetchTracks = async () => {
+                const artist1Tracks = await getArtistTopTracks(artist1, Number(numTracks));
+                const artist2Tracks = await getArtistTopTracks(artist2, Number(numTracks));
+
+                setArtist1Tracks(artist1Tracks);
+                setArtist2Tracks(artist2Tracks);
+            }
+
+            fetchTracks();
         } else if (battleType === 'Random') {
-            getArtistTopTracks(artist1, 100).then((tracks) => {
-                const shuffledTracks = tracks.sort(() => Math.random() - 0.5).slice(0, Number(numTracks));
-                setArtist1Tracks(shuffledTracks);
-            });
-            getArtistTopTracks(artist2, 100).then((tracks) => {
-                const shuffledTracks = tracks.sort(() => Math.random() - 0.5).slice(0, Number(numTracks));
-                setArtist2Tracks(shuffledTracks);
-            });
+            const fetchTracks = async () => {
+                const artist1Tracks = await getArtistTopTracks(artist1, 100);
+                const artist2Tracks = await getArtistTopTracks(artist2, 100);
+
+                const shuffledArtist1Tracks = artist1Tracks.sort(() => Math.random() - 0.5).slice(0, Number(numTracks));
+                const shuffledArtist2Tracks = artist2Tracks.sort(() => Math.random() - 0.5).slice(0, Number(numTracks));
+
+                setArtist1Tracks(shuffledArtist1Tracks);
+                setArtist2Tracks(shuffledArtist2Tracks);
+            }
+
+            fetchTracks();
         } else if (battleType === 'Album') {
-            getAlbumTracks(artist1Album).then((tracks) => {
-                setArtist1Tracks(tracks);
-            });
-            getAlbumTracks(artist2Album).then((tracks) => {
-                setArtist2Tracks(tracks);
-            });
+            const fetchTracks = async () => {
+                const artist1Tracks = await getAlbumTracks(artist1Album);
+                const artist2Tracks = await getAlbumTracks(artist2Album);
+
+                setArtist1Tracks(artist1Tracks);
+                setArtist2Tracks(artist2Tracks);
+            }
+
+            fetchTracks();
         }
     }, []);
 
@@ -53,6 +71,7 @@ const Battle = () => {
         if (shuffle) {
             setShuffledArtist1Tracks(artist1Tracks.sort(() => Math.random() - 0.5));
         }
+        console.log(shuffledArtist1Tracks);
     }, [artist1Tracks]);
 
     useEffect(() => {
@@ -61,6 +80,10 @@ const Battle = () => {
         }
     }, [artist2Tracks]);
 
+    if (artist1Tracks.length === 0 || artist2Tracks.length === 0) {
+        return <div>Loading...</div>
+    }
+
     return (
         <div>
             <ArtistContainer>
@@ -68,6 +91,11 @@ const Battle = () => {
                 <Swords src={swords} width='50' height='50'/>
                 <ArtistBox selectedArtist={artist2} title={null} size="large"/>
             </ArtistContainer>
+            <MatchupsContainer>
+                {artist1Tracks.map((track, index) => (
+                    <TrackMatchup key={index} track1={track} track2={artist2Tracks[index] || placeholderTrack}/>
+                ))}
+            </MatchupsContainer>
         </div>
     )
 }
@@ -82,4 +110,11 @@ const ArtistContainer = styled.div`
 
 const Swords = styled.img`
     margin-top: 5rem;
+    `
+
+const MatchupsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
     `

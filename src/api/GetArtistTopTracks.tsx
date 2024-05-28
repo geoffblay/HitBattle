@@ -7,6 +7,14 @@ async function getArtistTopTracks(artist: Artist, limit: number = 20) {
         return {
             id: track.id,
             title: track.title,
+            picture_medium: track.album.cover_medium,
+            contributors: track.contributors.map((contributor: any): Artist => {
+                return {
+                    id: contributor.id,
+                    name: contributor.name,
+                    picture_medium: contributor.picture_medium
+                };
+            })
         }
     });
 }

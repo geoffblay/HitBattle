@@ -7,6 +7,8 @@ export interface Artist {
 export interface Track {
     id: string;
     title: string;
+    picture_medium: string;
+    contributors: Artist[];
 }
 
 export interface Album {
