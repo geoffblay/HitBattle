@@ -22,9 +22,7 @@ const TrackMatchup = ({ track1, track2 }: TrackMatchupProps) => {
                 <TitleContributorContainer>
                     <Title>{track2.title}</Title>
                     <Contributors>
-                        {track2.contributors.map((artist) => (
-                            <div key={artist.id}>{artist.name}</div>
-                        ))}
+                    {track2.contributors.map((artist) => artist.name).join(', ')}
                     </Contributors>
                 </TitleContributorContainer>
                 <TrackImage src={track2.picture_medium} />
@@ -63,7 +61,7 @@ const TitleContributorContainer = styled.div`
     margin-right: 1rem;
 `
 
-const Title = styled.h2`
+const Title = styled.h4`
     margin: 0;
     margin-bottom: 0.5rem;
 `
