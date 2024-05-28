@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Track } from '../types'
+import { Track, Artist } from '../types'
 import { getAlbumTracks } from '../api/GetAlbumTracks'
 import { getArtistTopTracks } from '../api/GetArtistTopTracks'
 import styled from 'styled-components';
@@ -65,8 +65,8 @@ const Battle = () => {
             fetchTracks();
         } else if (battleType === 'Album') {
             const fetchTracks = async () => {
-                const artist1Tracks = await getAlbumTracks(artist1Album);
-                const artist2Tracks = await getAlbumTracks(artist2Album);
+                const artist1Tracks = await getAlbumTracks(artist1Album, artist1.picture_medium);
+                const artist2Tracks = await getAlbumTracks(artist2Album, artist2.picture_medium);
 
                 setArtist1Tracks(artist1Tracks);
                 setArtist2Tracks(artist2Tracks);
@@ -102,8 +102,27 @@ const Battle = () => {
         const artist1Score = track1ClickArray.reduce((acc, curr) => acc + Number(curr), 0);
         const artist2Score = track2ClickArray.reduce((acc, curr) => acc + Number(curr), 0);
 
-        localStorage.setItem('artist1Score', String(artist1Score));
-        localStorage.setItem('artist2Score', String(artist2Score));
+        // localStorage.setItem('winner', artist1Score > artist2Score ? JSON.stringify(artist1) : JSON.stringify(artist2));
+        // localStorage.setItem('loser', artist1Score > artist2Score ? JSON.stringify(artist2) : JSON.stringify(artist1));
+
+        let winner: Artist = artist1;
+        let loser: Artist = artist2;
+        let tie = false;
+        if (artist1Score > artist2Score) {
+            winner = artist1;
+            loser = artist2;
+        } else if (artist2Score > artist1Score) {
+            winner = artist2;
+            loser = artist1;
+        } else {
+            tie = true;
+        }
+
+        localStorage.setItem('winner', JSON.stringify(winner));
+        localStorage.setItem('loser', JSON.stringify(loser));
+        localStorage.setItem('tie', tie.toString());
+        localStorage.setItem('winnerScore', artist1Score.toString());
+        localStorage.setItem('loserScore', artist2Score.toString());
 
         navigate('/results')
     }
