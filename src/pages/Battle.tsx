@@ -7,9 +7,6 @@ const Battle = () => {
     const artist1Album = JSON.parse(localStorage.getItem('artist1Album') || '{}');
     const artist2Album = JSON.parse(localStorage.getItem('artist2Album') || '{}');
 
-    const artist1Tracks = JSON.parse(localStorage.getItem('artist1Tracks') || '[]');
-    const artist2Tracks = JSON.parse(localStorage.getItem('artist2Tracks') || '[]');
-
     return (
         <div>
             <h1>hey</h1>
@@ -20,8 +17,6 @@ const Battle = () => {
                 console.log(artist1Album);
                 console.log(artist2Album);
 
-                console.log(artist1Tracks);
-                console.log(artist2Tracks);
             }}>click me</button>
         </div>
     )

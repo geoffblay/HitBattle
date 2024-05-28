@@ -33,9 +33,6 @@ const BattleSetup = () => {
     const [artist1AlbumID, setArtist1AlbumID] = useState<string>('');
     const [artist2AlbumID, setArtist2AlbumID] = useState<string>('');
 
-    const [artist1Tracks, setArtist1Tracks] = useState<Track[]>([]);
-    const [artist2Tracks, setArtist2Tracks] = useState<Track[]>([]);
-
     const [artist1AlbumOptions, setArtist1AlbumOptions] = useState<Album[]>([]);
     const [artist2AlbumOptions, setArtist2AlbumOptions] = useState<Album[]>([]);
 
@@ -53,11 +50,6 @@ const BattleSetup = () => {
         };
 
         fetchAlbums();
-        // setArtist1Album(artist1AlbumOptions[0]);
-        // setArtist2Album(artist2AlbumOptions[0]);
-
-        // console.log(artist1AlbumOptions);
-
     }, []);
 
     useEffect(() => {
@@ -75,10 +67,6 @@ const BattleSetup = () => {
     useEffect(() => {
         setArtist2Album(artist2AlbumOptions.find((album) => album.id === artist2AlbumID) || placeholderAlbum);
     }, [artist2AlbumID]);
-
-    // useEffect(() => {
-    //     console.log(artist1Album);
-    // }, [artist1Album]);
 
     useEffect(() => {
         if (battleType === 'Album' && artist1Album && artist2Album) {
@@ -98,26 +86,10 @@ const BattleSetup = () => {
         localStorage.setItem('artist1Album', JSON.stringify(artist1Album));
         localStorage.setItem('artist2Album', JSON.stringify(artist2Album));
 
-        if (battleType === 'Album' && artist1Album && artist2Album) {
-            const fetchAlbumTracks = async () => {
-                const album1Tracks = await getAlbumTracks(artist1Album);
-                const album2Tracks = await getAlbumTracks(artist2Album);
-
-                setArtist1Tracks(album1Tracks);
-                setArtist2Tracks(album2Tracks);
-            }
-
-            fetchAlbumTracks();
-
-        }
-
-        localStorage.setItem('artist1Tracks', JSON.stringify(typeof artist1Album === 'string' ? [] : artist1Album?.tracks));
-        localStorage.setItem('artist2Tracks', JSON.stringify(typeof artist2Album === 'string' ? [] : artist2Album?.tracks));
-
         navigate('/battle');
     }
-    
 
+    
     return (
         <BattleSetupContainer>
             <ArtistContainer>

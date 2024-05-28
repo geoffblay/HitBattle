@@ -14,7 +14,6 @@ const CustomSwitch = ({ label, onChange }: SwitchProps) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
         onChange(event.target.checked);
-        console.log(event.target.checked);
     };
 
     return (
