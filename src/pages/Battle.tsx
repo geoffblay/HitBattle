@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { Track } from '../types'
 import { getAlbumTracks } from '../api/GetAlbumTracks'
 import { getArtistTopTracks } from '../api/GetArtistTopTracks'
-import { set } from 'firebase/database';
+import styled from 'styled-components';
+import ArtistBox from "../components/ArtistBox"
+import swords from '../assets/sword-cross.svg'
 
 const Battle = () => {
     const artist1 = JSON.parse(localStorage.getItem('artist1') || '{}');
@@ -61,12 +63,23 @@ const Battle = () => {
 
     return (
         <div>
-            <h1>hey</h1>
-            <button onClick={() => console.log(shuffledArtist1Tracks)}>
-
-            </button>
+            <ArtistContainer>
+                <ArtistBox selectedArtist={artist1} title={null} size="large"/>
+                <Swords src={swords} width='50' height='50'/>
+                <ArtistBox selectedArtist={artist2} title={null} size="large"/>
+            </ArtistContainer>
         </div>
     )
 }
 
 export default Battle
+
+const ArtistContainer = styled.div`
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    `
+
+const Swords = styled.img`
+    margin-top: 5rem;
+    `
