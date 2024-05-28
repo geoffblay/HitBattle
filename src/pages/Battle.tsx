@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 const Battle = () => {
     const placeholderTrack: Track = {
         id: '',
-        title: 'i hate thuis',
+        title: '',
         picture_medium: '',
         contributors: []
     }
@@ -113,13 +113,19 @@ const Battle = () => {
 
         let winner: Artist = artist1;
         let loser: Artist = artist2;
+        let winnerScore = 0;
+        let loserScore = 0;
         let tie = false;
         if (artist1Score > artist2Score) {
             winner = artist1;
             loser = artist2;
+            winnerScore = artist1Score;
+            loserScore = artist2Score;
         } else if (artist2Score > artist1Score) {
             winner = artist2;
             loser = artist1;
+            winnerScore = artist2Score;
+            loserScore = artist1Score;
         } else {
             tie = true;
         }
@@ -127,8 +133,8 @@ const Battle = () => {
         localStorage.setItem('winner', JSON.stringify(winner));
         localStorage.setItem('loser', JSON.stringify(loser));
         localStorage.setItem('tie', tie.toString());
-        localStorage.setItem('winnerScore', artist1Score.toString());
-        localStorage.setItem('loserScore', artist2Score.toString());
+        localStorage.setItem('winnerScore', winnerScore.toString());
+        localStorage.setItem('loserScore', loserScore.toString());
 
         navigate('/results')
     }
