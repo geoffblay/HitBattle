@@ -30,6 +30,9 @@ const Battle = () => {
     const [shuffledArtist1Tracks, setShuffledArtist1Tracks] = useState<Track[]>([]);
     const [shuffledArtist2Tracks, setShuffledArtist2Tracks] = useState<Track[]>([]);
 
+    const [track1ClickArray, setTrack1ClickArray] = useState<boolean[]>(Array(Number(numTracks)).fill(false));
+    const [track2ClickArray, setTrack2ClickArray] = useState<boolean[]>(Array(Number(numTracks)).fill(false));
+
     useEffect(() => {
         if (battleType === 'Top Tracks') {
             const fetchTracks = async () => {
@@ -93,7 +96,16 @@ const Battle = () => {
             </ArtistContainer>
             <MatchupsContainer>
                 {artist1Tracks.map((track, index) => (
-                    <TrackMatchup key={index} track1={track} track2={artist2Tracks[index] || placeholderTrack}/>
+                    <TrackMatchup 
+                        key={index} 
+                        track1={track} 
+                        track2={shuffledArtist2Tracks[index] || placeholderTrack}
+                        track1ClickArray={track1ClickArray}
+                        track2ClickArray={track2ClickArray}
+                        setTrack1ClickArray={setTrack1ClickArray}
+                        setTrack2ClickArray={setTrack2ClickArray}
+                        index={index}
+                    />
                 ))}
             </MatchupsContainer>
         </div>
