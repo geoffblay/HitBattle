@@ -45,8 +45,11 @@ const Battle = () => {
                 const artist1Tracks = await getArtistTopTracks(artist1, Number(numTracks));
                 const artist2Tracks = await getArtistTopTracks(artist2, Number(numTracks));
 
-                setArtist1Tracks(artist1Tracks);
-                setArtist2Tracks(artist2Tracks);
+                const slicedArtist1Tracks = artist1Tracks.slice(0, Number(numTracks));
+                const slicedArtist2Tracks = artist2Tracks.slice(0, Number(numTracks));
+
+                setArtist1Tracks(slicedArtist1Tracks);
+                setArtist2Tracks(slicedArtist2Tracks);
             }
 
             fetchTracks();
@@ -65,11 +68,14 @@ const Battle = () => {
             fetchTracks();
         } else if (battleType === 'Album') {
             const fetchTracks = async () => {
-                const artist1Tracks = await getAlbumTracks(artist1Album, artist1.picture_medium);
-                const artist2Tracks = await getAlbumTracks(artist2Album, artist2.picture_medium);
+                const artist1Tracks = await getAlbumTracks(artist1Album);
+                const artist2Tracks = await getAlbumTracks(artist2Album);
 
-                setArtist1Tracks(artist1Tracks);
-                setArtist2Tracks(artist2Tracks);
+                const slicedArtist1Tracks = artist1Tracks.slice(0, Number(numTracks));
+                const slicedArtist2Tracks = artist2Tracks.slice(0, Number(numTracks));
+
+                setArtist1Tracks(slicedArtist1Tracks);
+                setArtist2Tracks(slicedArtist2Tracks);
             }
 
             fetchTracks();
