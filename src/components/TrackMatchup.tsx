@@ -68,11 +68,10 @@ const TrackMatchup = ({ track1, track2, track1ClickArray, track2ClickArray, setT
 export default TrackMatchup
 
 const TrackMatchupContainer = styled.div`
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
     margin-bottom: 1rem;
 `
 

@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import ArtistBox from "../components/ArtistBox"
 import swords from '../assets/sword-cross.svg'
 import TrackMatchup from '../components/TrackMatchup';
+import MediumButton from '../components/MediumButton';
+import { useNavigate } from 'react-router-dom';
 
 const Battle = () => {
     const placeholderTrack: Track = {
@@ -14,6 +16,8 @@ const Battle = () => {
         picture_medium: '',
         contributors: []
     }
+
+    const navigate = useNavigate();
 
     const artist1 = JSON.parse(localStorage.getItem('artist1') || '{}');
     const artist2 = JSON.parse(localStorage.getItem('artist2') || '{}');
@@ -32,6 +36,8 @@ const Battle = () => {
 
     const [track1ClickArray, setTrack1ClickArray] = useState<boolean[]>(Array(Number(numTracks)).fill(false));
     const [track2ClickArray, setTrack2ClickArray] = useState<boolean[]>(Array(Number(numTracks)).fill(false));
+
+    const [finishReady, setFinishReady] = useState(false);
 
     useEffect(() => {
         if (battleType === 'Top Tracks') {
@@ -83,12 +89,31 @@ const Battle = () => {
         }
     }, [artist2Tracks]);
 
+    useEffect(() => {
+        const numSelected = track1ClickArray.reduce((acc, curr) => acc + Number(curr), 0) + track2ClickArray.reduce((acc, curr) => acc + Number(curr), 0);
+        if (numSelected === Number(numTracks)) {
+            setFinishReady(true);
+        } else {
+            setFinishReady(false);
+        }
+    }, [track1ClickArray, track2ClickArray]);
+
+    const handleFinish = () => {
+        const artist1Score = track1ClickArray.reduce((acc, curr) => acc + Number(curr), 0);
+        const artist2Score = track2ClickArray.reduce((acc, curr) => acc + Number(curr), 0);
+
+        localStorage.setItem('artist1Score', String(artist1Score));
+        localStorage.setItem('artist2Score', String(artist2Score));
+
+        navigate('/results')
+    }
+
     if (artist1Tracks.length === 0 || artist2Tracks.length === 0) {
         return <div>Loading...</div>
     }
 
     return (
-        <div>
+        <BattleContainer>
             <ArtistContainer>
                 <ArtistBox selectedArtist={artist1} title={null} size="large"/>
                 <Swords src={swords} width='50' height='50'/>
@@ -108,11 +133,21 @@ const Battle = () => {
                     />
                 ))}
             </MatchupsContainer>
-        </div>
+            <MediumButton title='Finish Battle' isactive={finishReady.toString()} onClick={() => {
+                handleFinish();
+            }}/>
+        </BattleContainer>
     )
 }
 
 export default Battle
+
+const BattleContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    `
 
 const ArtistContainer = styled.div`
     display: flex;
@@ -127,6 +162,6 @@ const Swords = styled.img`
 const MatchupsContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     align-items: center;
+    width: 75%;
     `
