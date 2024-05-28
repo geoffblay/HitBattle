@@ -14,15 +14,10 @@ interface TrackMatchupProps {
 }
 
 const TrackMatchup = ({ track1, track2, track1ClickArray, track2ClickArray, setTrack1ClickArray, setTrack2ClickArray, index }: TrackMatchupProps) => {
-    // const [track1Clicked, setTrack1Clicked] = useState(false);
-    // const [track2Clicked, setTrack2Clicked] = useState(false);
-
     return (
         <TrackMatchupContainer>
             <TrackContainer
                 onClick={() => {
-                    // setTrack1Clicked(true)
-                    // setTrack2Clicked(false)
                     const newArray = [...track1ClickArray];
                     newArray[index] = true;
                     setTrack1ClickArray(newArray);
@@ -42,8 +37,6 @@ const TrackMatchup = ({ track1, track2, track1ClickArray, track2ClickArray, setT
             </TrackContainer>
             <TrackContainer
                 onClick={() => {
-                    // setTrack2Clicked(true)
-                    // setTrack1Clicked(false)
                     const newArray = [...track2ClickArray];
                     newArray[index] = true;
                     setTrack2ClickArray(newArray);
