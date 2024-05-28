@@ -8,6 +8,7 @@ const Results = () => {
     const loser = JSON.parse(localStorage.getItem('loser') || '{}');
     const winnerScore = localStorage.getItem('winnerScore');
     const loserScore = localStorage.getItem('loserScore');
+    const tie = localStorage.getItem('tie');
 
     useEffect(() => {
         console.log(winner);
@@ -21,8 +22,18 @@ const Results = () => {
                 loser={loser}
                 height={350}
             />
-            <WinMessage>{winner.name} Wins!</WinMessage>
-            <Score>Score: {winnerScore} - {loserScore}</Score>
+            {tie && 
+            <>
+                <WinMessage>It's a tie!</WinMessage>
+                <Score>Score: {winnerScore} - {loserScore}</Score>
+            </>
+            }
+            {!tie && 
+                <>
+                    <WinMessage>{winner.name} Wins!</WinMessage>
+                    <Score>Score: {winnerScore} - {loserScore}</Score>
+                </>
+            }
             <ButtonsContainer>
                 <MediumButton
                     title="Save Battle"

@@ -128,6 +128,10 @@ const Battle = () => {
             loserScore = artist1Score;
         } else {
             tie = true;
+            winner = artist1;
+            loser = artist2;
+            winnerScore = artist1Score;
+            loserScore = artist2Score;
         }
 
         localStorage.setItem('winner', JSON.stringify(winner));
