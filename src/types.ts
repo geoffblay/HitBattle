@@ -17,3 +17,13 @@ export interface Album {
     cover_medium: string;
     tracks: Track[];
 }
+
+export interface Battle {
+    id: string;
+    winner: Artist;
+    winnerScore: number;
+    loser: Artist;
+    loserScore: number;
+    col1ClickArray: boolean[];
+    col2ClickArray: boolean[];
+}
