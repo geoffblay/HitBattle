@@ -2,18 +2,57 @@ import styled from "styled-components"
 import ResultsOverlap from "../components/ResultsOverlap";
 import { useEffect } from "react";
 import MediumButton from "../components/MediumButton";
+import { getFirestore, doc, setDoc, collection, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { app } from "../firebase/firebaseConfig";
 
 const Results = () => {
+    const db = getFirestore();
+
     const winner = JSON.parse(localStorage.getItem('winner') || '{}');
     const loser = JSON.parse(localStorage.getItem('loser') || '{}');
     const winnerScore = localStorage.getItem('winnerScore');
     const loserScore = localStorage.getItem('loserScore');
     const tie = localStorage.getItem('tie');
 
-    useEffect(() => {
-        console.log(winner);
-        console.log(loser);
-    }, []);
+    const handleSaveBattle = () => {
+        const col1ClickArray = JSON.parse(localStorage.getItem('col1ClickArray') || '[]');
+        const col2ClickArray = JSON.parse(localStorage.getItem('col2ClickArray') || '[]');
+
+        const saveBattle = async () => {
+            const battleRef = await addDoc(collection(db, 'battles'), {
+                winner,
+                loser,
+                winnerScore,
+                loserScore,
+                col1ClickArray,
+                col2ClickArray,
+            });
+
+            console.log('Document written with ID: ', battleRef.id);
+        }
+
+        const saveUserBattle = async () => {
+            const auth = getAuth(app);
+            const user = auth.currentUser;
+            if (user) {
+                const userBattleRef = await addDoc(collection(db, 'users', user.uid, 'battles'), {
+                    winner,
+                    loser,
+                    winnerScore,
+                    loserScore,
+                    col1ClickArray,
+                    col2ClickArray,
+                });
+
+                console.log('Document written with ID: ', userBattleRef.id);
+            }
+        }
+
+        saveBattle();
+        saveUserBattle();
+    }
+
 
     return (
         <ResultsContainer>
@@ -41,7 +80,7 @@ const Results = () => {
                 />
                 <MediumButton
                     title="Save Battle"
-                    onClick={() => {}}
+                    onClick={handleSaveBattle}
                 />
             </ButtonsContainer>
         </ResultsContainer>
