@@ -75,13 +75,14 @@ const Results = () => {
             }
             <ButtonsContainer>
                 <MediumButton
-                    title="Community Results"
-                    onClick={() => {}}
-                />
-                <MediumButton
                     title="Save Battle"
                     onClick={handleSaveBattle}
                     isactive={user ? 'true' : 'false'}
+                />
+                {!user && <p>Sign in to save your battle!</p>}
+                <MediumButton
+                    title="Community Results"
+                    onClick={() => {}}
                 />
             </ButtonsContainer>
         </ResultsContainer>
