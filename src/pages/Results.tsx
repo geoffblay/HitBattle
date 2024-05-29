@@ -5,8 +5,11 @@ import MediumButton from "../components/MediumButton";
 import { getFirestore, doc, setDoc, collection, addDoc } from "firebase/firestore";
 import { User, getAuth } from "firebase/auth";
 import { app } from "../firebase/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const Results = () => {
+    const navigate = useNavigate();
+
     const db = getFirestore();
     const auth = getAuth(app);
     const user: User | null = auth.currentUser;
@@ -51,6 +54,7 @@ const Results = () => {
 
         saveBattle();
         saveUserBattle();
+        navigate('/account');
     }
 
 
