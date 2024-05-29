@@ -36,11 +36,11 @@ const Results = () => {
             }
             <ButtonsContainer>
                 <MediumButton
-                    title="Save Battle"
+                    title="Community Results"
                     onClick={() => {}}
                 />
                 <MediumButton
-                    title="Community Results"
+                    title="Save Battle"
                     onClick={() => {}}
                 />
             </ButtonsContainer>

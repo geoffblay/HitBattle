@@ -139,6 +139,8 @@ const Battle = () => {
         localStorage.setItem('tie', tie.toString());
         localStorage.setItem('winnerScore', winnerScore.toString());
         localStorage.setItem('loserScore', loserScore.toString());
+        localStorage.setItem('col1ClickArray', JSON.stringify(track1ClickArray));
+        localStorage.setItem('col2ClickArray', JSON.stringify(track2ClickArray));
 
         navigate('/results')
     }
