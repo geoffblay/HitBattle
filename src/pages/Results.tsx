@@ -3,11 +3,13 @@ import ResultsOverlap from "../components/ResultsOverlap";
 import { useEffect } from "react";
 import MediumButton from "../components/MediumButton";
 import { getFirestore, doc, setDoc, collection, addDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { User, getAuth } from "firebase/auth";
 import { app } from "../firebase/firebaseConfig";
 
 const Results = () => {
     const db = getFirestore();
+    const auth = getAuth(app);
+    const user: User | null = auth.currentUser;
 
     const winner = JSON.parse(localStorage.getItem('winner') || '{}');
     const loser = JSON.parse(localStorage.getItem('loser') || '{}');
@@ -33,8 +35,6 @@ const Results = () => {
         }
 
         const saveUserBattle = async () => {
-            const auth = getAuth(app);
-            const user = auth.currentUser;
             if (user) {
                 const userBattleRef = await addDoc(collection(db, 'users', user.uid, 'battles'), {
                     winner,
@@ -81,6 +81,7 @@ const Results = () => {
                 <MediumButton
                     title="Save Battle"
                     onClick={handleSaveBattle}
+                    isactive={user ? 'true' : 'false'}
                 />
             </ButtonsContainer>
         </ResultsContainer>

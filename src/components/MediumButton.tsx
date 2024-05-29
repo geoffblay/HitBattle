@@ -11,8 +11,14 @@ interface TitledButtonProps extends ButtonProps {
 }
 
 const MediumButton = ({ title, isactive="true", onClick }: TitledButtonProps) => {
+    const handleClick = () => {
+        if (isactive === "true") {
+            onClick();
+        }
+    }
+
     return (
-        <Button isactive={isactive} onClick={onClick}>{title}</Button>
+        <Button isactive={isactive} onClick={handleClick}>{title}</Button>
     )
 }
 
