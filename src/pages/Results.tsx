@@ -78,13 +78,13 @@ const Results = () => {
                 loser={loser}
                 height={350}
             />
-            {tie && 
+            {tie === 'true' && 
             <>
                 <WinMessage>It's a tie!</WinMessage>
                 <Score>Score: {winnerScore} - {loserScore}</Score>
             </>
             }
-            {!tie && 
+            {tie === 'false' && 
                 <>
                     <WinMessage>{winner.name} Wins!</WinMessage>
                     <Score>Score: {winnerScore} - {loserScore}</Score>
