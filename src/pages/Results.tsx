@@ -2,11 +2,11 @@ import styled from "styled-components"
 import ResultsOverlap from "../components/ResultsOverlap";
 import ResultList from "../components/ResultList";
 import MediumButton from "../components/MediumButton";
-import { getFirestore, doc, setDoc, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { User, getAuth } from "firebase/auth";
 import { app } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import { getCommunityResults } from "../firebase/getCommunityResults";
+import { getCommunityResults } from "../firebase/GetCommunityResults";
 import { useEffect, useState } from "react";
 import { Battle } from "../types";
 

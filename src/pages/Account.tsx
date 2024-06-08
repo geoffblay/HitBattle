@@ -3,6 +3,7 @@ import { app } from '../firebase/firebaseConfig';
 import { useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import MediumButton from '../components/MediumButton';
 
 const Account = () => {
     const navigate = useNavigate();
@@ -26,11 +27,29 @@ const Account = () => {
     }
 
     return (
-        <div>
-            <h1>Account</h1>
-            <button onClick={handleSignOut}>Sign Out</button>
-        </div>
+        <AccountContainer>
+            <AccountBanner>
+                Your Account
+            </AccountBanner>
+            <SignoutButtonContainer>
+                <MediumButton onClick={handleSignOut} title='Sign Out'></MediumButton>
+            </SignoutButtonContainer>
+        </AccountContainer>
     )
 }
 
 export default Account
+
+const AccountContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const SignoutButtonContainer = styled.div`
+`
+
+const AccountBanner = styled.h1`
+    margin-top: 2rem;
+    font-size: 3rem;
+`

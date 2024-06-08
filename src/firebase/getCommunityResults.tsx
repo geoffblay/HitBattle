@@ -1,5 +1,5 @@
 import { Battle, Artist } from "../types";
-import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 import { app } from "./firebaseConfig";
 
 async function getCommunityResults(artist1: Artist, artist2: Artist) {
