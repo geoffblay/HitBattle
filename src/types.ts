@@ -26,4 +26,6 @@ export interface Battle {
     loserScore: number;
     col1ClickArray: boolean[];
     col2ClickArray: boolean[];
+    artist1: Artist;
+    artist2: Artist;
 }

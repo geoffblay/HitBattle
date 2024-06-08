@@ -17,6 +17,8 @@ const Results = () => {
     const auth = getAuth(app);
     const user: User | null = auth.currentUser;
 
+    const artist1 = JSON.parse(localStorage.getItem('artist1') || '{}');
+    const artist2 = JSON.parse(localStorage.getItem('artist2') || '{}');
     const winner = JSON.parse(localStorage.getItem('winner') || '{}');
     const loser = JSON.parse(localStorage.getItem('loser') || '{}');
     const winnerScore = localStorage.getItem('winnerScore');
@@ -45,6 +47,8 @@ const Results = () => {
                 loserScore,
                 col1ClickArray,
                 col2ClickArray,
+                artist1,
+                artist2,
             });
 
             console.log('Document written with ID: ', battleRef.id);
@@ -59,6 +63,8 @@ const Results = () => {
                     loserScore,
                     col1ClickArray,
                     col2ClickArray,
+                    artist1,
+                    artist2,
                 });
 
                 console.log('Document written with ID: ', userBattleRef.id);
@@ -103,7 +109,6 @@ const Results = () => {
                 <ResultList
                     battles={communityResults}
                     limit={5}
-                    onBattleSelect={() => {}}
                 />
             </ResultListContainer>
         </ResultsContainer>
