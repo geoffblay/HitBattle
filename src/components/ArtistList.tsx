@@ -65,9 +65,8 @@ export default ArtistList
 const ArtistListContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
-    padding-left: 2rem;
     `
 
 const PlaylistTitle = styled.h2`
@@ -76,7 +75,7 @@ const PlaylistTitle = styled.h2`
 
 const PicListContainer = styled.div`
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     width: 100%;
     gap: 1rem;

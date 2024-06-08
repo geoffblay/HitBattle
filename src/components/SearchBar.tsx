@@ -3,8 +3,13 @@ import { useState, useEffect } from 'react';
 import { searchArtists } from '../api/SearchArtists';
 import { Artist } from '../types';
 import SearchResult from './SearchResult';
+import { Search } from 'react-router-dom';
 
-const SearchBar = () => {
+interface SearchBarProps {
+    onArtistSelect: (artist: Artist) => void;
+}
+
+const SearchBar = ({ onArtistSelect }: SearchBarProps) => {
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [searchResults, setSearchResults] = useState<Artist[]>([]);
     const [searching, setSearching] = useState<boolean>(false);
@@ -41,7 +46,17 @@ const SearchBar = () => {
                 <p>Searching...</p>
             ) : (
                 searchQuery && searchResults.map((artist, index) => (
-                    <SearchResult key={index} artist={artist} />
+                    <SearchResultContainer
+                        onClick={() => {
+                            onArtistSelect(artist);
+                            setSearchQuery('');
+                        }}
+                    >
+                        <SearchResult 
+                            key={index} 
+                            artist={artist} 
+                        />
+                    </SearchResultContainer>
                 ))
             )}
         </div>
@@ -56,3 +71,6 @@ const SearchInput = styled.input`
     border-radius: 20px;
     width: 600px;
     `
+
+const SearchResultContainer = styled.div`
+`

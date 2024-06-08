@@ -14,10 +14,10 @@ const NextArtist = () => {
 
     const handleArtistSelect = (artist: Artist) => {
         setSelectedArtist(artist);
-        localStorage.setItem('artist2', JSON.stringify(artist));
     }
-
+    
     const handleNextArtist = () => {
+        localStorage.setItem('artist2', JSON.stringify(selectedArtist));
         setSelectedArtist(null);
         navigate('/battlesetup');
     }
@@ -26,7 +26,7 @@ const NextArtist = () => {
         <HomeContainer>
             <SearchBarContainer>
                 <h1>...Now choose another.</h1>
-                <SearchBar />
+                <SearchBar onArtistSelect={setSelectedArtist}/>
             </SearchBarContainer>
             <PrevAndCurrentArtistContainer>
                 <ArtistBox selectedArtist={artist1} title='Previous Artist'/>

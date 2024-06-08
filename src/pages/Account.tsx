@@ -57,9 +57,12 @@ const Account = () => {
                     onBattleSelect={() => {}} 
                 />
             </ResultListContainer>
-            <SignoutButtonContainer>
+            <ButtonContainer>
+                <MediumButton onClick={() => navigate('/')} title='New Battle'></MediumButton>
+            </ButtonContainer>
+            <ButtonContainer>
                 <MediumButton onClick={handleSignOut} title='Sign Out'></MediumButton>
-            </SignoutButtonContainer>
+            </ButtonContainer>
         </AccountContainer>
     )
 }
@@ -72,7 +75,7 @@ const AccountContainer = styled.div`
     align-items: center;
 `
 
-const SignoutButtonContainer = styled.div`
+const ButtonContainer = styled.div`
 `
 
 const AccountBanner = styled.h1`

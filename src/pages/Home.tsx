@@ -29,7 +29,7 @@ const Home = () => {
         <HomeContainer>
             <SearchBarContainer>
                 <h1>Choose an artist...</h1>
-                <SearchBar />
+                <SearchBar onArtistSelect={setSelectedArtist}/>
             </SearchBarContainer>
             {selectedArtist && (
                 <ArtistBox selectedArtist={selectedArtist} title='Current Artist'/>
