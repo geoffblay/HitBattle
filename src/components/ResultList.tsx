@@ -20,10 +20,12 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '80%',
+    height: '80%',
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
-    borderRadius: '20px'
+    borderRadius: '20px',
+    overflow: 'scroll'
 };
 
 const ResultList = ({ battles, limit }: ResultListProps) => {
@@ -33,15 +35,10 @@ const ResultList = ({ battles, limit }: ResultListProps) => {
         setOpen(true);
         setSelectedBattle(battle);
     }
-    const handleClose = () => setOpen(false);
-
-    useEffect(() => {
-        if (selectedBattle) {
-            getBattle(selectedBattle.id).then(battle => {
-                setSelectedBattle(battle || null);
-            });
-        }
-    }, [selectedBattle]);
+    const handleClose = () => {
+        setOpen(false);
+        setSelectedBattle(null);
+    }
 
     return (
         <ResultListContainer>
@@ -64,21 +61,23 @@ const ResultList = ({ battles, limit }: ResultListProps) => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-                                {selectedBattle && (
-                                        selectedBattle.artist1Tracks.map((track, index) => (
-                                            <TrackMatchup 
-                                                key={index} 
-                                                track1={track} 
-                                                track2={selectedBattle.artist2Tracks[index] || null}
-                                                track1ClickArray={selectedBattle.col1ClickArray}
-                                                track2ClickArray={selectedBattle.col2ClickArray}
-                                                setTrack1ClickArray={() => {}}
-                                                setTrack2ClickArray={() => {}}
-                                                index={index}
-                                            />
-                                        ))
-                                    )
-                                }
+                                <PopupContainer>
+                                    {selectedBattle && (
+                                            selectedBattle.artist1Tracks.map((track, index) => (
+                                                <TrackMatchup 
+                                                    key={index} 
+                                                    track1={track} 
+                                                    track2={selectedBattle.artist2Tracks[index] || null}
+                                                    track1ClickArray={selectedBattle.col1ClickArray}
+                                                    track2ClickArray={selectedBattle.col2ClickArray}
+                                                    setTrack1ClickArray={() => {}}
+                                                    setTrack2ClickArray={() => {}}
+                                                    index={index}
+                                                />
+                                            ))
+                                        )
+                                    }
+                                </PopupContainer>
                             </Box>
                         </Modal>
                     </>
@@ -119,8 +118,5 @@ const Score = styled.h1`
     margin-top: 0.5rem;
 `
 
-const PopupColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+const PopupContainer = styled.div`
 `
