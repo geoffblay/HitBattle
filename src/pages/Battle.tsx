@@ -141,6 +141,8 @@ const Battle = () => {
         localStorage.setItem('loserScore', loserScore.toString());
         localStorage.setItem('col1ClickArray', JSON.stringify(track1ClickArray));
         localStorage.setItem('col2ClickArray', JSON.stringify(track2ClickArray));
+        localStorage.setItem('artist1Tracks', JSON.stringify(artist1Tracks));
+        localStorage.setItem('artist2Tracks', JSON.stringify(artist2Tracks));
 
         navigate('/results')
     }

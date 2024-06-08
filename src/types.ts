@@ -28,4 +28,6 @@ export interface Battle {
     col2ClickArray: boolean[];
     artist1: Artist;
     artist2: Artist;
+    artist1Tracks: Track[];
+    artist2Tracks: Track[];
 }

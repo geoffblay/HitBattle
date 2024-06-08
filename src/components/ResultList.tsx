@@ -7,6 +7,7 @@ import Modal from '@mui/material/Modal';
 import { useEffect, useState } from "react";
 import { getBattle } from "../firebase/GetBattle";
 import ArtistBox from "./ArtistBox";
+import TrackMatchup from "./TrackMatchup";
 
 interface ResultListProps {
     battles: Battle[];
@@ -18,11 +19,11 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '80%',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    borderRadius: '20px'
 };
 
 const ResultList = ({ battles, limit }: ResultListProps) => {
@@ -63,7 +64,21 @@ const ResultList = ({ battles, limit }: ResultListProps) => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-                                fart
+                                {selectedBattle && (
+                                        selectedBattle.artist1Tracks.map((track, index) => (
+                                            <TrackMatchup 
+                                                key={index} 
+                                                track1={track} 
+                                                track2={selectedBattle.artist2Tracks[index] || null}
+                                                track1ClickArray={selectedBattle.col1ClickArray}
+                                                track2ClickArray={selectedBattle.col2ClickArray}
+                                                setTrack1ClickArray={() => {}}
+                                                setTrack2ClickArray={() => {}}
+                                                index={index}
+                                            />
+                                        ))
+                                    )
+                                }
                             </Box>
                         </Modal>
                     </>
@@ -102,4 +117,10 @@ const Score = styled.h1`
     font-weight: 500;
     margin: 0;
     margin-top: 0.5rem;
+`
+
+const PopupColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 `

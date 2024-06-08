@@ -19,6 +19,8 @@ const Results = () => {
 
     const artist1 = JSON.parse(localStorage.getItem('artist1') || '{}');
     const artist2 = JSON.parse(localStorage.getItem('artist2') || '{}');
+    const artist1Tracks = JSON.parse(localStorage.getItem('artist1Tracks') || '[]');
+    const artist2Tracks = JSON.parse(localStorage.getItem('artist2Tracks') || '[]');
     const winner = JSON.parse(localStorage.getItem('winner') || '{}');
     const loser = JSON.parse(localStorage.getItem('loser') || '{}');
     const winnerScore = localStorage.getItem('winnerScore');
@@ -49,6 +51,8 @@ const Results = () => {
                 col2ClickArray,
                 artist1,
                 artist2,
+                artist1Tracks,
+                artist2Tracks,
             });
 
             console.log('Document written with ID: ', battleRef.id);
@@ -65,6 +69,8 @@ const Results = () => {
                     col2ClickArray,
                     artist1,
                     artist2,
+                    artist1Tracks,
+                    artist2Tracks,
                 });
 
                 console.log('Document written with ID: ', userBattleRef.id);
