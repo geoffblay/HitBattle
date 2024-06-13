@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import NavBar from './components/NavBar'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import NextArtist from './pages/NextArtist'
+import 'normalize.css'
+import { createGlobalStyle } from 'styled-components'
+import BattleSetup from './pages/BattleSetup'
+import Login from './pages/Login'
+import Account from './pages/Account'
+import Battle from './pages/Battle'
+import Results from './pages/Results'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <BrowserRouter>
+            <GlobalStyle />
+            <NavBar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/nextartist" element={<NextArtist />} />
+                <Route path="/battlesetup" element={<BattleSetup />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/battle" element={<Battle />} />
+                <Route path="/results" element={<Results />} />
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App
+
+const GlobalStyle = createGlobalStyle`
+    body {
+        font-family: 'DM Sans', sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+    }
+`
